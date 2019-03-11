@@ -17,3 +17,6 @@ Route::get('/', function () {
 Route::get('/video', function () {
     return view('video');
 });
+
+Route::get('login/{provider}', 'SocialController@redirect');
+Route::get('login/{provider}/callback','SocialController@callback');
