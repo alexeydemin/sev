@@ -9,11 +9,14 @@
     "license": "MIT",
     "require": {
         "php": "^7.1.3",
+        "ext-json": "*",
+        "LaravelCollective/html": "^5.8",
         "beyondcode/laravel-websockets": "^1.1",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/socialite": "^4.1",
         "laravel/tinker": "^1.0",
+        "nicklaw5/twitch-api-php": "^2.1",
         "pusher/pusher-php-server": "~3.0",
         "socialiteproviders/twitch": "^5.0"
     },

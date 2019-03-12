@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>SEV</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -65,34 +65,28 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    SEV
                 </div>
 
+                @if(!$isAuthorized)
                 <div class="links">
-                    <form>
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <a href="{{ url('/login/twitch') }}" class="btn btn-facebook">Twitch</a>
-                            </div>
+                    <div class="form-group row">
+                        <div class="col-md-6 offset-md-4">
+                            <a href="{{ url('/login/twitch') }}" class="btn btn-facebook">Login with Twitch</a>
                         </div>
-                    </form>
+                    </div>
                 </div>
+                @else
+                    {{ Form::select('streamers',
+                    [null => 'Please Select'] + $streamers,
+                    null,
+                    [
+                    'class' => 'form-control',
+                    'onchange' => 'window.location.href="video/" + this.options[this.selectedIndex].text;'
+                    ]) }}
+                @endif
             </div>
         </div>
     </body>

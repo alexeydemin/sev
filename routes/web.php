@@ -11,12 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/video', function () {
-    return view('video');
-});
+Route::get('/', 'HomeController')->name('home');
+Route::get('/video/{streamer}', 'VideoController')->name('video');
 
 Route::get('login/{provider}', 'SocialController@redirect');
 Route::get('login/{provider}/callback','SocialController@callback');

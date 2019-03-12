@@ -65,7 +65,7 @@
     </head>
     <body>
     <iframe
-            src="https://player.twitch.tv/?channel=riotgamesbrazil"
+            src="https://player.twitch.tv/?channel={{$streamer}}"
             height="360"
             width="640"
             frameborder="0"

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialController extends Controller
@@ -14,8 +13,13 @@ class SocialController extends Controller
 
     public function callback($provider)
     {
-        echo 'done!';
-        //$userSocial = Socialite::driver($provider)->user();
 
+        $userSocial = Socialite::driver($provider)->user();
+
+        session([
+            'userId' => $userSocial->user['id']
+        ]);
+
+        return redirect()->route('home');
     }
 }
