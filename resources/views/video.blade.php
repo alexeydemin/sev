@@ -61,16 +61,40 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .container{
+                display: flex;
+            }
+            .fixed{
+                width: 640px;
+            }
+            .flex-item{
+                flex-grow: 1;
+            }
+
         </style>
     </head>
     <body>
-    <iframe
-            src="https://player.twitch.tv/?channel={{$streamer}}"
-            height="360"
-            width="640"
-            frameborder="0"
-            scrolling="no"
-            allowfullscreen="true">
-    </iframe>
+    <div class="container">
+        <div class="fixed">
+            <iframe
+                    src="https://player.twitch.tv/?channel={{$streamer}}"
+                    height="360"
+                    width="640"
+                    frameborder="0"
+                    scrolling="no"
+                    allowfullscreen="true">
+            </iframe>
+        </div>
+        <div class="flex-item">
+            <iframe frameborder="0"
+                    scrolling="no"
+                    id="chat_embed"
+                    src="https://www.twitch.tv/embed/{{$streamer}}/chat"
+                    height="360"
+                    width="500">
+            </iframe>
+        </div>
+    </div>
     </body>
 </html>
