@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Services\Twitch;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
 
-    public function __invoke(Twitch $twitch)
+    public function index(Twitch $twitch)
     {
         $streamers = [];
         $userId = session('userId');
@@ -17,7 +17,7 @@ class HomeController extends Controller
             echo 'userId=' . session('userId');
             $streamers = $twitch
                 ->getFollows($userId)
-                ->pluck('to_id', 'to_name')
+                ->pluck('to_name', 'to_id')
                 ->toArray();
         }
 
@@ -29,10 +29,14 @@ class HomeController extends Controller
 
     public function subscribe(Request $request, Twitch $twitch)
     {
-        $streamerId = $request->input('streamerId');
-        $twitch->subscribe($streamerId);
+        $streamer = $twitch->getUser($request->input('streamerId'))[0];
 
-        return redirect()->route('video', ['streamerId' => $streamerId]);
+        $twitch->subscribe($streamer);
+
+        return redirect()->route('video', [
+            'streamerId' => $streamer->id,
+            'streamerName' => $streamer->display_name,
+        ]);
     }
 
 }

@@ -26,22 +26,37 @@ class Twitch
     {
         try {
             $response = $this->api->getUsersApi()->getUsersFollows($userId);
+            $responseContent = json_decode($response->getBody()->getContents());
+
+            return collect($responseContent->data);
         } catch (GuzzleException $e) {
             // handle error
+            return false;
         }
 
-        $responseContent = json_decode($response->getBody()->getContents());
 
-        return collect($responseContent->data);
     }
 
-    public function subscribe($streamerId)
+    public function getUser($userId)
+    {
+        try {
+            $response = $this->api->getUsersApi()->getUserById($userId);
+            $responseContent = json_decode($response->getBody()->getContents());
+
+            return $responseContent->data;
+        } catch (GuzzleException $e) {
+            // handle error
+            return false;
+        }
+    }
+
+    public function subscribe($streamer)
     {
         try {
             $this->api->getWebhooksSubscriptionApi()->subscribeToStream(
-                $streamerId,
+                $streamer->id,
                 'bearer',
-                'https://yourwebsite.com/path/to/callback/handler',
+                "http://alexeydemin-sev.herokuapp.com/video/{$streamer->id}/{$streamer->display_name}",
                 864000
             );
         } catch (GuzzleException $e) {

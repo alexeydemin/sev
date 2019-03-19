@@ -78,7 +78,7 @@
     <div class="container">
         <div class="fixed">
             <iframe
-                    src="https://player.twitch.tv/?channel={{$streamer}}"
+                    src="https://player.twitch.tv/?channel={{$streamerName}}"
                     height="360"
                     width="640"
                     frameborder="0"
@@ -90,8 +90,8 @@
             <iframe frameborder="0"
                     scrolling="no"
                     id="chat_embed"
-                    src="https://www.twitch.tv/embed/{{$streamer}}/chat"
-                    height="360"
+                    src="https://www.twitch.tv/embed/{{$streamerName}}/chat"
+                    height="660"
                     width="500">
             </iframe>
         </div>

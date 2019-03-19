@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 
 class VideoController extends Controller
 {
-    public function __invoke(string $streamer)
+    public function __invoke(string $streamerId, $streamerName)
     {
-        return view('video', compact('streamer'));
+        return view('video', compact('streamerId', 'streamerName'));
     }
 }

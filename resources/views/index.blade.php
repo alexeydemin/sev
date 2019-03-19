@@ -79,13 +79,15 @@
                     </div>
                 </div>
                 @else
-                    {{ Form::select('streamers',
+                    {!! Form::open(['method'=>'POST']) !!}
+                    {{ Form::select('streamerId',
                     [null => 'Please Select'] + $streamers,
                     null,
                     [
                     'class' => 'form-control',
-                    'onchange' => 'this.value ? window.location.href="video/" + this.value : false'
+                    'onchange' => 'submit()'
                     ]) }}
+                    {!! Form::close() !!}
                 @endif
             </div>
         </div>
