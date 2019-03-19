@@ -35,4 +35,18 @@ class Twitch
         return collect($responseContent->data);
     }
 
+    public function subscribe($streamerId)
+    {
+        try {
+            $this->api->getWebhooksSubscriptionApi()->subscribeToStream(
+                $streamerId,
+                'bearer',
+                'https://yourwebsite.com/path/to/callback/handler',
+                864000
+            );
+        } catch (GuzzleException $e) {
+            // handle error
+        }
+    }
+
 }

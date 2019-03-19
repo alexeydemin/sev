@@ -84,7 +84,7 @@
                     null,
                     [
                     'class' => 'form-control',
-                    'onchange' => 'window.location.href="video/" + this.options[this.selectedIndex].text;'
+                    'onchange' => 'this.value ? window.location.href="video/" + this.value : false'
                     ]) }}
                 @endif
             </div>

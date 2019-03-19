@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\Twitch;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 
 class HomeController extends Controller
 {
@@ -17,7 +17,7 @@ class HomeController extends Controller
             echo 'userId=' . session('userId');
             $streamers = $twitch
                 ->getFollows($userId)
-                ->pluck('to_name', 'to_id')
+                ->pluck('to_id', 'to_name')
                 ->toArray();
         }
 
@@ -25,6 +25,14 @@ class HomeController extends Controller
             'isAuthorized' => (bool) $userId,
             'streamers' => $streamers
         ]);
+    }
+
+    public function subscribe(Request $request, Twitch $twitch)
+    {
+        $streamerId = $request->input('streamerId');
+        $twitch->subscribe($streamerId);
+
+        return redirect()->route('video', ['streamerId' => $streamerId]);
     }
 
 }
