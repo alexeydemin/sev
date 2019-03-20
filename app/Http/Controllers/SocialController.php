@@ -36,6 +36,8 @@ class SocialController extends Controller
         file_put_contents(storage_path('mylog.log'), "== END POST ==\n", FILE_APPEND);
 
 
-        echo $_GET['hub_challenge'];
+        if(isset($_GET['hub_challenge'])) {
+            echo $_GET['hub_challenge'];
+        }
     }
 }
