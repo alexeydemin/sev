@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Twitch;
-use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialController extends Controller

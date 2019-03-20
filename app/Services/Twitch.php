@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Overridden\WebhooksCustomSubscriptionApi;
 use NewTwitchApi\HelixGuzzleClient;
 use NewTwitchApi\NewTwitchApi;
 use GuzzleHttp\Exception\GuzzleException;
@@ -53,10 +54,16 @@ class Twitch
     public function subscribe($streamer)
     {
         try {
-            $this->api->getWebhooksSubscriptionApi()->subscribeToStream(
+            $webApi = new WebhooksCustomSubscriptionApi(
+                config('services.twitch.client_id'),
+                config('services.twitch.client_secret'),
+                new HelixGuzzleClient(config('services.twitch.client_id'))
+            );
+
+            $webApi->subscribeToStream(
                 $streamer->id,
                 'bearer',
-                "http://alexeydemin-sev.herokuapp.com/webhook",
+                route('wh'),
                 864000
             );
         } catch (GuzzleException $e) {
