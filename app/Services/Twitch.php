@@ -56,7 +56,7 @@ class Twitch
             $this->api->getWebhooksSubscriptionApi()->subscribeToStream(
                 $streamer->id,
                 'bearer',
-                "http://alexeydemin-sev.herokuapp.com/video/{$streamer->id}/{$streamer->display_name}",
+                "http://alexeydemin-sev.herokuapp.com/webhook",
                 864000
             );
         } catch (GuzzleException $e) {
