@@ -27,13 +27,13 @@ class SocialController extends Controller
 
     public function webhook()
     {
-        Log::info('== GET ==' );
-        Log::info(print_r($_GET, 1));
-        Log::info('== END GET ==' );
+        file_put_contents(storage_path('mylog.log'), "== GET ==\n", FILE_APPEND);
+        file_put_contents(storage_path('mylog.log'), print_r($_GET, 1) . "\n", FILE_APPEND);
+        file_put_contents(storage_path('mylog.log'), "== END GET ==\n", FILE_APPEND);
 
-        Log::info('== POST ==' );
-        Log::info(print_r($_POST, 1));
-        Log::info('== END POST ==' );
+        file_put_contents(storage_path('mylog.log'), "== POST ==\n", FILE_APPEND);
+        file_put_contents(storage_path('mylog.log'), print_r($_POST, 1) . "\n", FILE_APPEND);
+        file_put_contents(storage_path('mylog.log'), "== END POST ==\n", FILE_APPEND);
 
 
         echo $_GET['hub_challenge'];
