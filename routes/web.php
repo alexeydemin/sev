@@ -15,6 +15,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::post('/', 'HomeController@subscribe')->name('subscribe');
 
 Route::get('/video/{streamerId}/{streamerName}', 'VideoController')->name('video');
+Route::get('/webhook', 'SocialController@webhook')->name('wh');
 
 Route::get('login/{provider}', 'SocialController@redirect');
 Route::get('login/{provider}/callback','SocialController@callback');
