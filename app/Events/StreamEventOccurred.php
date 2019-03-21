@@ -10,7 +10,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class FollowingOccurred implements ShouldBroadcast
+class StreamEventOccurred implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -30,6 +30,6 @@ class FollowingOccurred implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('following_' . $this->streamerId);
+        return new Channel('events_of_' . $this->streamerId);
     }
 }

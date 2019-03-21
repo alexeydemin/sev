@@ -17,8 +17,8 @@
       }
     },
     mounted() {
-      this.$echo.channel('following_' + this.streamerId)
-        .listen('FollowingOccurred', (e) => {
+      this.$echo.channel('events_of_' + this.streamerId)
+        .listen('StreamEventOccurred', (e) => {
           console.log(e.message);
           if (this.messages.length > 9) {
             this.messages.pop();

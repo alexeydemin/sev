@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\FollowingOccurred;
+use App\Events\StreamEventOccurred;
 use Carbon\Carbon;
 
 class WebhookController extends Controller
@@ -29,7 +29,7 @@ class WebhookController extends Controller
         $at = Carbon::parse($this->json['data'][0]['followed_at'])->format('m/d/Y H:i:s');
         $msg = "$follower followed $streamer at $at";
 
-        broadcast(new FollowingOccurred($streamerId, $msg));
+        broadcast(new StreamEventOccurred($streamerId, $msg));
     }
 
     public function webhookStreamChanges()
@@ -47,7 +47,7 @@ class WebhookController extends Controller
             $msg = "Stream changed: $userName | $title | $viewerCount viewers | $language";
         }
 
-        broadcast(new FollowingOccurred($streamerId, $msg));
+        broadcast(new StreamEventOccurred($streamerId, $msg));
     }
 
     public function webhookUserChanges()
@@ -62,6 +62,6 @@ class WebhookController extends Controller
         $msg = "Stream changed: $userName | $login | $viewerCount viewers | $description | $type";
 
 
-        broadcast(new FollowingOccurred($streamerId, $msg));
+        broadcast(new StreamEventOccurred($streamerId, $msg));
     }
 }
