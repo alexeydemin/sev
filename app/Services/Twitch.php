@@ -11,6 +11,7 @@ class Twitch
 {
 
     protected $api;
+    protected $customApi;
 
     public function __construct()
     {
@@ -20,6 +21,11 @@ class Twitch
             $helixGuzzleClient,
             config('services.twitch.client_id'),
             config('services.twitch.client_secret')
+        );
+        $this->customApi = new WebhooksCustomSubscriptionApi(
+            config('services.twitch.client_id'),
+            config('services.twitch.client_secret'),
+            new HelixGuzzleClient(config('services.twitch.client_id'))
         );
     }
 
@@ -54,17 +60,21 @@ class Twitch
     public function subscribe($streamer)
     {
         try {
-            $webApi = new WebhooksCustomSubscriptionApi(
-                config('services.twitch.client_id'),
-                config('services.twitch.client_secret'),
-                new HelixGuzzleClient(config('services.twitch.client_id'))
-            );
-
-            $webApi->subscribeToStream(
+            $this->customApi->subscribeToFollows(
                 $streamer->id,
-                'bearer',
                 route('wh'),
                 864000
+            );
+        } catch (GuzzleException $e) {
+            // handle error
+        }
+    }
+    public function unsubscribe($streamer)
+    {
+        try {
+            $this->customApi->unsubscribeFromFollows(
+                $streamer->id,
+                route('wh')
             );
         } catch (GuzzleException $e) {
             // handle error

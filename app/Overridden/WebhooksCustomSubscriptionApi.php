@@ -8,6 +8,7 @@ use NewTwitchApi\HelixGuzzleClient;
 class WebhooksCustomSubscriptionApi
 {
     public const SUBSCRIBE = 'subscribe';
+    public const UNSUBSCRIBE = 'unsubscribe';
 
     private $clientId;
     private $secret;
@@ -20,11 +21,21 @@ class WebhooksCustomSubscriptionApi
         $this->guzzleClient = $guzzleClient ?? new HelixGuzzleClient($clientId);
     }
 
-    public function subscribeToStream(string $twitchId, string $bearer, string $callback, int $leaseSeconds = 0): void
+    public function subscribeToFollows(string $twitchId, string $callback, int $leaseSeconds = 0): void
     {
-        $this->subscribe(
+        $this->toggleSubscription(
+            true,
             sprintf('https://api.twitch.tv/helix/users/follows?first=1&to_id=%s', $twitchId),
-            $bearer,
+            $callback,
+            $leaseSeconds
+        );
+    }
+
+    public function unsubscribeFromFollows(string $twitchId, string $callback, int $leaseSeconds = 0): void
+    {
+        $this->toggleSubscription(
+            false,
+            sprintf('https://api.twitch.tv/helix/users/follows?first=1&to_id=%s', $twitchId),
             $callback,
             $leaseSeconds
         );
@@ -38,17 +49,16 @@ class WebhooksCustomSubscriptionApi
         return $expectedHash === $generatedHash;
     }
 
-    private function subscribe(string $topic, string $bearer, string $callback, int $leaseSeconds = 0): void
+    private function toggleSubscription(bool $enable, string $topic, string $callback, int $leaseSeconds = 0): void
     {
         $headers = [
-            //'Authorization' => sprintf('Bearer %s', $bearer),
             'Content-Type' => 'application/json',
             'Client-ID' => $this->clientId,
         ];
 
         $body = [
             'hub.callback' => $callback,
-            'hub.mode' => self::SUBSCRIBE,
+            'hub.mode' => $enable ? self::SUBSCRIBE : self::UNSUBSCRIBE,
             'hub.topic' => $topic,
             'hub.lease_seconds' => $leaseSeconds,
             'hub.secret' => $this->secret,
