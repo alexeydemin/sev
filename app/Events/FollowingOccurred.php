@@ -19,8 +19,8 @@ class FollowingOccurred implements ShouldBroadcast
 
     public function __construct(int $streamerId, string $message)
     {
-        $this->message = $message;
         $this->streamerId = $streamerId;
+        $this->message = $message;
     }
 
     /**

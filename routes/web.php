@@ -15,7 +15,9 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::post('/', 'HomeController@subscribe')->name('subscribe');
 
 Route::get('/video/{streamerId}/{streamerName}', 'VideoController')->name('video');
-Route::any('/webhook', 'WebhookController@webhook')->name('wh');
+Route::any('/webhook/followers', 'WebhookController@webhookFollowers')->name('wh.followers');
+Route::any('/webhook/stream', 'WebhookController@webhookStreamChanges')->name('wh.stream');
+Route::any('/webhook/user', 'WebhookController@webhookUserChanges')->name('wh.user');
 
 Route::get('login/{provider}', 'SocialController@redirect');
 Route::get('login/{provider}/callback','SocialController@callback');

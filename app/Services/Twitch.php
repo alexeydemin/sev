@@ -59,15 +59,9 @@ class Twitch
 
     public function subscribe($streamer)
     {
-        try {
-            $this->customApi->subscribeToFollows(
-                $streamer->id,
-                route('wh'),
-                864000
-            );
-        } catch (GuzzleException $e) {
-            // handle error
-        }
+        $this->customApi->subscribeToFollows($streamer->id);
+        $this->customApi->subscribeToStreamChanges($streamer->id);
+        $this->customApi->subscribeToUserChanges($streamer->id);
     }
     public function unsubscribe($streamer)
     {

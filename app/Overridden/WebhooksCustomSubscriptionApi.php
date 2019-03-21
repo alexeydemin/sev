@@ -21,24 +21,33 @@ class WebhooksCustomSubscriptionApi
         $this->guzzleClient = $guzzleClient ?? new HelixGuzzleClient($clientId);
     }
 
-    public function subscribeToFollows(string $twitchId, string $callback, int $leaseSeconds = 0): void
+    public function subscribeToFollows(string $streamerId): void
     {
         $this->toggleSubscription(
-            true,
-            sprintf('https://api.twitch.tv/helix/users/follows?first=1&to_id=%s', $twitchId),
-            $callback,
-            $leaseSeconds
+            sprintf('https://api.twitch.tv/helix/users/follows?first=1&to_id=%s', $streamerId),
+            'http://941485fe.ngrok.io/webhook/followers' /*route('wh.followers')*/
         );
     }
 
-    public function unsubscribeFromFollows(string $twitchId, string $callback, int $leaseSeconds = 0): void
+    public function subscribeToStreamChanges(string $streamerId): void
     {
         $this->toggleSubscription(
-            false,
-            sprintf('https://api.twitch.tv/helix/users/follows?first=1&to_id=%s', $twitchId),
-            $callback,
-            $leaseSeconds
+            sprintf('https://api.twitch.tv/helix/streams?user_id=%s', $streamerId),
+            'http://941485fe.ngrok.io/webhook/stream'/*route('wh.stream')*/
         );
+    }
+
+    public function subscribeToUserChanges(string $streamerId): void
+    {
+        $this->toggleSubscription(
+            sprintf('https://api.twitch.tv/helix/users?id=%s', $streamerId),
+            'http://941485fe.ngrok.io/webhook/user'/*route('wh.user')*/
+        );
+    }
+
+    public function unsubscribeFromFollows(string $streamerId): void
+    {
+        $this->toggleSubscription(sprintf('https://api.twitch.tv/helix/users/follows?first=1&to_id=%s', $streamerId), false);
     }
 
     public function validateWebhookEventCallback(string $xHubSignature, string $content): bool
@@ -49,7 +58,12 @@ class WebhooksCustomSubscriptionApi
         return $expectedHash === $generatedHash;
     }
 
-    private function toggleSubscription(bool $enable, string $topic, string $callback, int $leaseSeconds = 0): void
+    private function toggleSubscription(
+        string $topic,
+        string $callback,
+        bool $enable = true,
+        int $leaseSeconds = 864000
+    ): void
     {
         $headers = [
             'Content-Type' => 'application/json',

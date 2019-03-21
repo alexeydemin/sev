@@ -15,55 +15,42 @@
             margin: 0;
         }
 
-        .links > a {
-            color: #636b6f;
-            padding: 0 25px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: .1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
         .container {
             display: flex;
         }
-
         .fixed {
             width: 640px;
         }
-
         .flex-item {
             flex-grow: 1;
         }
-
     </style>
 </head>
 <body>
 <div class="container">
     <div class="fixed">
-        {{--            <iframe
-                            src="https://player.twitch.tv/?channel={{$streamerName}}"
-                            height="360"
-                            width="640"
-                            frameborder="0"
-                            scrolling="no"
-                            allowfullscreen="true">
-                    </iframe>--}}
+        <iframe
+                src="https://player.twitch.tv/?channel={{$streamerName}}"
+                height="360"
+                width="640"
+                frameborder="0"
+                scrolling="no"
+                allowfullscreen="true">
+        </iframe>
+        <div id="app">
+            Last 10 events:
+            <events streamer-id="{{$streamerId}}"></events>
+        </div>
     </div>
     <div class="flex-item">
-        {{--            <iframe frameborder="0"
-                            scrolling="no"
-                            id="chat_embed"
-                            src="https://www.twitch.tv/embed/{{$streamerName}}/chat"
-                            height="660"
-                            width="500">
-                    </iframe>--}}
+        <iframe frameborder="0"
+                scrolling="no"
+                id="chat_embed"
+                src="https://www.twitch.tv/embed/{{$streamerName}}/chat"
+                height="660"
+                width="500">
+        </iframe>
     </div>
-</div>
-<div id="app">
-    Events:
-    <events streamer-id="{{$streamerId}}"></events>
 </div>
 </body>
 </html>
