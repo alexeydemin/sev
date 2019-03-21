@@ -15,10 +15,12 @@ class FollowingOccurred implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
+    public $streamerId;
 
-    public function __construct(string $message)
+    public function __construct(int $streamerId, string $message)
     {
         $this->message = $message;
+        $this->streamerId = $streamerId;
     }
 
     /**
@@ -28,6 +30,6 @@ class FollowingOccurred implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('following');
+        return new Channel('following_' . $this->streamerId);
     }
 }

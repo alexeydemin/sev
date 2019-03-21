@@ -103,7 +103,7 @@
 </html>
 <script src="/js/app.js"></script>
 <script>
-  Echo.channel('following')
+  Echo.channel(`following_{{$streamerId}}` )
     .listen('FollowingOccurred', (e) => {
       console.log(e.message);
     });
