@@ -103,9 +103,8 @@
 </html>
 <script src="/js/app.js"></script>
 <script>
-  console.log('echo running...');
   Echo.channel('following')
     .listen('FollowingOccurred', (e) => {
-      console.log(e);
+      console.log(e.message);
     });
 </script>
