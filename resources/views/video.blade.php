@@ -1,110 +1,73 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+    <title>Laravel</title>
+    <style>
+        html, body {
+            background-color: #fff;
+            color: #636b6f;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 200;
+            height: 100vh;
+            margin: 0;
+        }
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        .links > a {
+            color: #636b6f;
+            padding: 0 25px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: .1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+        .container {
+            display: flex;
+        }
 
-            .full-height {
-                height: 100vh;
-            }
+        .fixed {
+            width: 640px;
+        }
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+        .flex-item {
+            flex-grow: 1;
+        }
 
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-
-            .container{
-                display: flex;
-            }
-            .fixed{
-                width: 640px;
-            }
-            .flex-item{
-                flex-grow: 1;
-            }
-
-        </style>
-    </head>
-    <body>
-    <div class="container">
-        <div class="fixed">
-{{--            <iframe
-                    src="https://player.twitch.tv/?channel={{$streamerName}}"
-                    height="360"
-                    width="640"
-                    frameborder="0"
-                    scrolling="no"
-                    allowfullscreen="true">
-            </iframe>--}}
-        </div>
-        <div class="flex-item">
-{{--            <iframe frameborder="0"
-                    scrolling="no"
-                    id="chat_embed"
-                    src="https://www.twitch.tv/embed/{{$streamerName}}/chat"
-                    height="660"
-                    width="500">
-            </iframe>--}}
-        </div>
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="fixed">
+        {{--            <iframe
+                            src="https://player.twitch.tv/?channel={{$streamerName}}"
+                            height="360"
+                            width="640"
+                            frameborder="0"
+                            scrolling="no"
+                            allowfullscreen="true">
+                    </iframe>--}}
     </div>
-    <div>
-        Events:
+    <div class="flex-item">
+        {{--            <iframe frameborder="0"
+                            scrolling="no"
+                            id="chat_embed"
+                            src="https://www.twitch.tv/embed/{{$streamerName}}/chat"
+                            height="660"
+                            width="500">
+                    </iframe>--}}
     </div>
-    </body>
+</div>
+<div id="app">
+    Events:
+    <events streamer-id="{{$streamerId}}"></events>
+</div>
+</body>
 </html>
 <script src="/js/app.js"></script>
 <script>
-  Echo.channel(`following_{{$streamerId}}` )
-    .listen('FollowingOccurred', (e) => {
-      console.log(e.message);
-    });
+
 </script>
