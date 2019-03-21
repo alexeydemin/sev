@@ -25,7 +25,7 @@ class WebhooksCustomSubscriptionApi
     {
         $this->toggleSubscription(
             sprintf('https://api.twitch.tv/helix/users/follows?first=1&to_id=%s', $streamerId),
-            'http://941485fe.ngrok.io/webhook/followers' /*route('wh.followers')*/
+            /*'http://941485fe.ngrok.io/webhook/followers'*/ route('wh.followers')
         );
     }
 
@@ -33,7 +33,7 @@ class WebhooksCustomSubscriptionApi
     {
         $this->toggleSubscription(
             sprintf('https://api.twitch.tv/helix/streams?user_id=%s', $streamerId),
-            'http://941485fe.ngrok.io/webhook/stream'/*route('wh.stream')*/
+            /*'http://941485fe.ngrok.io/webhook/stream'*/route('wh.stream')
         );
     }
 
@@ -41,7 +41,7 @@ class WebhooksCustomSubscriptionApi
     {
         $this->toggleSubscription(
             sprintf('https://api.twitch.tv/helix/users?id=%s', $streamerId),
-            'http://941485fe.ngrok.io/webhook/user'/*route('wh.user')*/
+            /*'http://941485fe.ngrok.io/webhook/user'*/route('wh.user')
         );
     }
 

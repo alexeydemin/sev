@@ -85,7 +85,7 @@
                     null,
                     [
                     'class' => 'form-control',
-                    'onchange' => 'submit()'
+                    'onchange' => 'this.value ? submit() : false'
                     ]) }}
                     {!! Form::close() !!}
                 @endif

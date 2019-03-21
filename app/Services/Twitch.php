@@ -63,6 +63,7 @@ class Twitch
         $this->customApi->subscribeToStreamChanges($streamer->id);
         $this->customApi->subscribeToUserChanges($streamer->id);
     }
+
     public function unsubscribe($streamer)
     {
         try {

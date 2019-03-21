@@ -17,7 +17,7 @@ class StreamEventOccurred implements ShouldBroadcast
     public $message;
     public $streamerId;
 
-    public function __construct(int $streamerId, string $message)
+    public function __construct(string $streamerId, string $message)
     {
         $this->streamerId = $streamerId;
         $this->message = $message;
